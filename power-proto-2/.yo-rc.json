@@ -1,0 +1,11 @@
+{
+  "generator-toccata": {
+    "siteNumber": 1,
+    "sites": [
+      {
+        "name": "Site1",
+        "networkName": "Site1"
+      }
+    ]
+  }
+}

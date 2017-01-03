@@ -1,0 +1,246 @@
+[
+    {
+        "id": "e73517d.1035be8",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "d61104ba.00e058",
+        "type": "mongodb2",
+        "z": "",
+        "uri": "mongodb://aws-us-east-1-portal.8.dblayer.com:15234",
+        "name": "",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "de948637.a7cda8",
+        "type": "mongodb2 in",
+        "z": "e73517d.1035be8",
+        "service": "_ext_",
+        "configNode": "d61104ba.00e058",
+        "name": "mongodb2",
+        "collection": "projects",
+        "operation": "find.toArray",
+        "x": 431.5,
+        "y": 117,
+        "wires": [
+            [
+                "5e00b3c0.84bfac",
+                "7e542df6.c6a964"
+            ]
+        ]
+    },
+    {
+        "id": "5e00b3c0.84bfac",
+        "type": "http response",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "x": 690.5,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e41f9cd6.1a923",
+        "type": "http in",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "url": "/projects",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 165.5,
+        "y": 122,
+        "wires": [
+            [
+                "de948637.a7cda8",
+                "7e542df6.c6a964"
+            ]
+        ]
+    },
+    {
+        "id": "ceb45570.1de5b8",
+        "type": "mongodb2 in",
+        "z": "e73517d.1035be8",
+        "service": "_ext_",
+        "configNode": "d61104ba.00e058",
+        "name": "mongodb2",
+        "collection": "projects",
+        "operation": "insert",
+        "x": 520,
+        "y": 255,
+        "wires": [
+            [
+                "f5aff217.324"
+            ]
+        ]
+    },
+    {
+        "id": "f5aff217.324",
+        "type": "http response",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "x": 695,
+        "y": 256,
+        "wires": []
+    },
+    {
+        "id": "78861c3.cbec2e4",
+        "type": "http in",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "url": "/projects",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 152,
+        "y": 258,
+        "wires": [
+            [
+                "9847a4fd.f2e7f8"
+            ]
+        ]
+    },
+    {
+        "id": "9847a4fd.f2e7f8",
+        "type": "function",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "func": "msg.payload = msg.req.body;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 324.5,
+        "y": 261,
+        "wires": [
+            [
+                "ceb45570.1de5b8"
+            ]
+        ]
+    },
+    {
+        "id": "22fd2e46.b6c872",
+        "type": "mongodb2 in",
+        "z": "e73517d.1035be8",
+        "service": "_ext_",
+        "configNode": "d61104ba.00e058",
+        "name": "mongodb2",
+        "collection": "projects",
+        "operation": "update",
+        "x": 514,
+        "y": 347,
+        "wires": [
+            [
+                "58997da2.86ec54"
+            ]
+        ]
+    },
+    {
+        "id": "58997da2.86ec54",
+        "type": "http response",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "x": 689,
+        "y": 348,
+        "wires": []
+    },
+    {
+        "id": "bb8094f5.5257e8",
+        "type": "http in",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "url": "/projects",
+        "method": "put",
+        "swaggerDoc": "",
+        "x": 136,
+        "y": 350,
+        "wires": [
+            [
+                "3c2e6b30.82e844"
+            ]
+        ]
+    },
+    {
+        "id": "3c2e6b30.82e844",
+        "type": "function",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "func": "msg.payload = msg.req.body;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 318.5,
+        "y": 353,
+        "wires": [
+            [
+                "22fd2e46.b6c872"
+            ]
+        ]
+    },
+    {
+        "id": "6f910a1e.1eb554",
+        "type": "mongodb2 in",
+        "z": "e73517d.1035be8",
+        "service": "_ext_",
+        "configNode": "d61104ba.00e058",
+        "name": "mongodb2",
+        "collection": "projects",
+        "operation": "update",
+        "x": 521,
+        "y": 460,
+        "wires": [
+            [
+                "b9adc92c.0215c8"
+            ]
+        ]
+    },
+    {
+        "id": "b9adc92c.0215c8",
+        "type": "http response",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "x": 696,
+        "y": 461,
+        "wires": []
+    },
+    {
+        "id": "67e6ddda.ecfdc4",
+        "type": "http in",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "url": "/projects/:id",
+        "method": "delete",
+        "swaggerDoc": "",
+        "x": 142,
+        "y": 467,
+        "wires": [
+            [
+                "1a8028e4.81ab87"
+            ]
+        ]
+    },
+    {
+        "id": "1a8028e4.81ab87",
+        "type": "function",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "func": "msg.payload = msg.req.params;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 325.5,
+        "y": 466,
+        "wires": [
+            [
+                "6f910a1e.1eb554"
+            ]
+        ]
+    },
+    {
+        "id": "7e542df6.c6a964",
+        "type": "debug",
+        "z": "e73517d.1035be8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 599.5,
+        "y": 43,
+        "wires": []
+    }
+]

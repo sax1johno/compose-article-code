@@ -1,0 +1,10 @@
+version: '2.0'
+services:
+    powerprototyping_node-red:
+        environment:
+            - NODE_ENV=production
+            - ENV=production
+    jsonwebtoken_node-red:
+        environment:
+            - NODE_ENV=production
+            - ENV=production

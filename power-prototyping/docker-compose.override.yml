@@ -1,0 +1,30 @@
+version: '2.0'
+services:
+    powerprototyping_node-red:
+        environment:
+            - NODE_ENV=development
+            - ENV=development
+        volumes:
+            - './sites/PowerPrototyping/flows:/usr/src/flows'
+            - './sites/PowerPrototyping/public:/usr/src/public'
+    powerprototyping_views:
+        environment:
+            - NODE_ENV=development
+            - ENV=development
+        volumes:
+            - './sites/PowerPrototyping/flows:/usr/src/flows'
+            - './sites/PowerPrototyping/public:/usr/src/public'
+    jsonwebtoken_node-red:
+        environment:
+            - NODE_ENV=development
+            - ENV=development
+        volumes:
+            - './sites/JSONWebToken/flows:/usr/src/flows'
+            - './sites/JSONWebToken/public:/usr/src/public'
+    jsonwebtoken_views:
+        environment:
+            - NODE_ENV=development
+            - ENV=development
+        volumes:
+            - './sites/JSONWebToken/components/Views/views:/usr/src/views'
+            - './sites/JSONWebToken/components/Views/models:/usr/src/models'

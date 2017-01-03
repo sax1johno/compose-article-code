@@ -1,0 +1,716 @@
+[
+    {
+        "id": "99f0ad03.92794",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "aea59718.571bf8",
+        "type": "tab",
+        "label": "Flow 2"
+    },
+    {
+        "id": "43b7abf0.ba7424",
+        "type": "tab",
+        "label": "Flow 3"
+    },
+    {
+        "id": "d96d1efc.1af6f",
+        "type": "tab",
+        "label": "Flow 4"
+    },
+    {
+        "id": "12c48fe4.f2b65",
+        "type": "JsonWebToken_config",
+        "z": "",
+        "name": "My Secret Key",
+        "secret": "zsm7k8W3TkpsSjqXHzsYs0nmfBBXbrvPj69JWp2s"
+    },
+    {
+        "id": "49752e61.9b1e9",
+        "type": "mongodb2",
+        "z": "",
+        "uri": "mongodb://aws-us-east-1-portal.8.dblayer.com:15234,aws-us-east-1-portal.7.dblayer.com:15234/jsonwebtoken",
+        "name": "JSONWebToken",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "6c4ada22.c8c1a4",
+        "type": "http in",
+        "z": "99f0ad03.92794",
+        "name": "",
+        "url": "/encrypt",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 101,
+        "y": 121,
+        "wires": [
+            [
+                "d6e94018.c17d"
+            ]
+        ]
+    },
+    {
+        "id": "d6e94018.c17d",
+        "type": "JsonWebToken",
+        "z": "99f0ad03.92794",
+        "name": "Token",
+        "tokenconfig": "12c48fe4.f2b65",
+        "x": 283.5,
+        "y": 121,
+        "wires": [
+            [
+                "1d4855c8.afcd6a"
+            ]
+        ]
+    },
+    {
+        "id": "1d4855c8.afcd6a",
+        "type": "change",
+        "z": "99f0ad03.92794",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "token",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 472.5,
+        "y": 125,
+        "wires": [
+            [
+                "f096fed2.04c79"
+            ]
+        ]
+    },
+    {
+        "id": "f096fed2.04c79",
+        "type": "http response",
+        "z": "99f0ad03.92794",
+        "name": "",
+        "x": 660.5,
+        "y": 121,
+        "wires": []
+    },
+    {
+        "id": "994c0e6f.1f322",
+        "type": "http in",
+        "z": "99f0ad03.92794",
+        "name": "",
+        "url": "/decrypt",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 107.5,
+        "y": 235,
+        "wires": [
+            [
+                "ff606ab1.b3ecc8"
+            ]
+        ]
+    },
+    {
+        "id": "f34bf905.ef2ae8",
+        "type": "JsonWebToken",
+        "z": "99f0ad03.92794",
+        "name": "token",
+        "tokenconfig": "12c48fe4.f2b65",
+        "x": 456.5,
+        "y": 235,
+        "wires": [
+            [
+                "d9e3e0b1.43631"
+            ]
+        ]
+    },
+    {
+        "id": "ff606ab1.b3ecc8",
+        "type": "function",
+        "z": "99f0ad03.92794",
+        "name": "",
+        "func": "msg.token = msg.req.body.access_token;\ndelete msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 297.5,
+        "y": 237,
+        "wires": [
+            [
+                "f34bf905.ef2ae8"
+            ]
+        ]
+    },
+    {
+        "id": "d9e3e0b1.43631",
+        "type": "function",
+        "z": "99f0ad03.92794",
+        "name": "",
+        "func": "msg.payload = msg.token;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 622.5,
+        "y": 237,
+        "wires": [
+            [
+                "1c02952e.82685b"
+            ]
+        ]
+    },
+    {
+        "id": "1c02952e.82685b",
+        "type": "http response",
+        "z": "99f0ad03.92794",
+        "name": "",
+        "x": 782.5,
+        "y": 236,
+        "wires": []
+    },
+    {
+        "id": "7edf5c56.e33c74",
+        "type": "http in",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "url": "/login",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 145.5,
+        "y": 130,
+        "wires": [
+            [
+                "159a556f.582e9b"
+            ]
+        ]
+    },
+    {
+        "id": "a8dd4434.d43208",
+        "type": "http in",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "url": "/login",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 156.5,
+        "y": 216,
+        "wires": [
+            [
+                "e79f9616.e4b078"
+            ]
+        ]
+    },
+    {
+        "id": "160061cf.db056e",
+        "type": "http in",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "url": "/protected",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 171.5,
+        "y": 308,
+        "wires": [
+            [
+                "7f4c5f46.5a579"
+            ]
+        ]
+    },
+    {
+        "id": "159a556f.582e9b",
+        "type": "template",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n   <head>\n   </head>\n   <body>\n      <form action=\"/login\" method=\"POST\">\n         <label for=\"username\">Login</label>\n         <input name=\"username\" type=\"text\" />\n         <br />\n         <label for=\"password\">Password</label>\n         <input name=\"password\" type=\"password\" />\n         <br />\n         <input type=\"submit\" />\n      </form>\n   </body>\n</html>\n",
+        "x": 369.5,
+        "y": 128,
+        "wires": [
+            [
+                "bb3bf038.b679c"
+            ]
+        ]
+    },
+    {
+        "id": "bb3bf038.b679c",
+        "type": "http response",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "x": 601.5,
+        "y": 129,
+        "wires": []
+    },
+    {
+        "id": "790e6aad.5d3a64",
+        "type": "inject",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "topic": "",
+        "payload": "{ \"username\": \"admin\", \"password\": \"secret\", \"firstName\": \"John\", \"lastName\": \"O'Connor\", \"email\": \"johnwoconnor@compose.io\" }",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 173.5,
+        "y": 394,
+        "wires": [
+            [
+                "1a0b7f14.a46881"
+            ]
+        ]
+    },
+    {
+        "id": "1a0b7f14.a46881",
+        "type": "mongodb2 in",
+        "z": "aea59718.571bf8",
+        "service": "_ext_",
+        "configNode": "49752e61.9b1e9",
+        "name": "",
+        "collection": "Users",
+        "operation": "insert",
+        "x": 483.5,
+        "y": 391,
+        "wires": [
+            [
+                "c2f3fab2.234958"
+            ]
+        ]
+    },
+    {
+        "id": "c2f3fab2.234958",
+        "type": "debug",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 769.5,
+        "y": 390,
+        "wires": []
+    },
+    {
+        "id": "e79f9616.e4b078",
+        "type": "function",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "func": "msg.userData = msg.payload;\nmsg.payload = {\n    username: msg.userData.username\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370.5,
+        "y": 210,
+        "wires": [
+            [
+                "d01adc7.2f0e62"
+            ]
+        ]
+    },
+    {
+        "id": "d01adc7.2f0e62",
+        "type": "mongodb2 in",
+        "z": "aea59718.571bf8",
+        "service": "_ext_",
+        "configNode": "49752e61.9b1e9",
+        "name": "",
+        "collection": "Users",
+        "operation": "findOne",
+        "x": 624.5,
+        "y": 211,
+        "wires": [
+            [
+                "fbebcab4.f73848"
+            ]
+        ]
+    },
+    {
+        "id": "fbebcab4.f73848",
+        "type": "JsonWebToken",
+        "z": "aea59718.571bf8",
+        "name": "encrypt",
+        "tokenconfig": "12c48fe4.f2b65",
+        "x": 857.5,
+        "y": 210,
+        "wires": [
+            [
+                "f3e5e039.ba3cc"
+            ]
+        ]
+    },
+    {
+        "id": "f3e5e039.ba3cc",
+        "type": "change",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "token",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1044.5,
+        "y": 209,
+        "wires": [
+            [
+                "d06658c5.ea3ba8"
+            ]
+        ]
+    },
+    {
+        "id": "d06658c5.ea3ba8",
+        "type": "http response",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "x": 1201.5,
+        "y": 205,
+        "wires": []
+    },
+    {
+        "id": "7f4c5f46.5a579",
+        "type": "function",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "func": "if (msg.payload.token) {\n   msg.token = msg.payload.token;\n   node.send(msg);\n} else {\n    msg.statusCode = 403;\n   node.send([null, msg]);\n}\n",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 369.5,
+        "y": 305,
+        "wires": [
+            [
+                "68984ecf.da17d"
+            ],
+            [
+                "26db0914.c5ef26"
+            ]
+        ]
+    },
+    {
+        "id": "26db0914.c5ef26",
+        "type": "http response",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "x": 551.5,
+        "y": 335,
+        "wires": []
+    },
+    {
+        "id": "68984ecf.da17d",
+        "type": "JsonWebToken",
+        "z": "aea59718.571bf8",
+        "name": "Decrypt",
+        "tokenconfig": "12c48fe4.f2b65",
+        "x": 555.5,
+        "y": 286,
+        "wires": [
+            [
+                "3a60b20d.14c77e"
+            ]
+        ]
+    },
+    {
+        "id": "3a60b20d.14c77e",
+        "type": "change",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "token",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 746.5,
+        "y": 285,
+        "wires": [
+            [
+                "5e7bbf8f.55e38"
+            ]
+        ]
+    },
+    {
+        "id": "5e7bbf8f.55e38",
+        "type": "http response",
+        "z": "aea59718.571bf8",
+        "name": "",
+        "x": 942.5,
+        "y": 283,
+        "wires": []
+    },
+    {
+        "id": "9d8d0a7a.b20fc8",
+        "type": "http in",
+        "z": "43b7abf0.ba7424",
+        "name": "",
+        "url": "/login",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 185,
+        "y": 93,
+        "wires": [
+            [
+                "124b8798.6cf438"
+            ]
+        ]
+    },
+    {
+        "id": "47917de8.841644",
+        "type": "http in",
+        "z": "43b7abf0.ba7424",
+        "name": "",
+        "url": "/login",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 196,
+        "y": 179,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24472d30.4afd42",
+        "type": "http in",
+        "z": "43b7abf0.ba7424",
+        "name": "",
+        "url": "/protected",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 211,
+        "y": 271,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "124b8798.6cf438",
+        "type": "template",
+        "z": "43b7abf0.ba7424",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n   <head>\n   </head>\n   <body>\n      <form action=\"/login\" method=\"POST\">\n         <label for=\"username\">Login</label>\n         <input name=\"username\" type=\"text\" />\n         <br />\n         <label for=\"password\">Password</label>\n         <input name=\"password\" type=\"password\" />\n         <br />\n         <input type=\"submit\" />\n      </form>\n   </body>\n</html>\n",
+        "x": 384,
+        "y": 89,
+        "wires": [
+            [
+                "6eafe712.f07998"
+            ]
+        ]
+    },
+    {
+        "id": "6eafe712.f07998",
+        "type": "http response",
+        "z": "43b7abf0.ba7424",
+        "name": "",
+        "x": 616,
+        "y": 90,
+        "wires": []
+    },
+    {
+        "id": "c769ba8b.4c0a38",
+        "type": "inject",
+        "z": "43b7abf0.ba7424",
+        "name": "",
+        "topic": "",
+        "payload": "{ \"username\": \"admin\", \"password\": \"secret\", \"firstName\": \"John\", \"lastName\": \"O'Connor\", \"email\": \"johnwoconnor@compose.io\" }",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 174.5,
+        "y": 348,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "83b30927.f5c3a8",
+        "type": "http in",
+        "z": "d96d1efc.1af6f",
+        "name": "",
+        "url": "/login",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "b0d5d556.9a21b8"
+            ]
+        ]
+    },
+    {
+        "id": "1d7c14e1.b75deb",
+        "type": "http in",
+        "z": "d96d1efc.1af6f",
+        "name": "",
+        "url": "/login",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 161,
+        "y": 186,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8130c627.b64f28",
+        "type": "http in",
+        "z": "d96d1efc.1af6f",
+        "name": "",
+        "url": "/protected",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 176,
+        "y": 278,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b0d5d556.9a21b8",
+        "type": "template",
+        "z": "d96d1efc.1af6f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n   <head>\n   </head>\n   <body>\n      <form action=\"/login\" method=\"POST\">\n         <label for=\"username\">Login</label>\n         <input name=\"username\" type=\"text\" />\n         <br />\n         <label for=\"password\">Password</label>\n         <input name=\"password\" type=\"password\" />\n         <br />\n         <input type=\"submit\" />\n      </form>\n   </body>\n</html>\n",
+        "x": 374,
+        "y": 98,
+        "wires": [
+            [
+                "44d0da12.9cfa04"
+            ]
+        ]
+    },
+    {
+        "id": "44d0da12.9cfa04",
+        "type": "http response",
+        "z": "d96d1efc.1af6f",
+        "name": "",
+        "x": 606,
+        "y": 99,
+        "wires": []
+    },
+    {
+        "id": "44b043ac.14899c",
+        "type": "inject",
+        "z": "d96d1efc.1af6f",
+        "name": "",
+        "topic": "",
+        "payload": "{ \"username\": \"admin\", \"password\": \"secret\", \"firstName\": \"John\", \"lastName\": \"O'Connor\", \"email\": \"johnwoconnor@compose.io\" }",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 178,
+        "y": 364,
+        "wires": [
+            [
+                "45442e97.49cf2"
+            ]
+        ]
+    },
+    {
+        "id": "45442e97.49cf2",
+        "type": "mongodb2 in",
+        "z": "d96d1efc.1af6f",
+        "service": "_ext_",
+        "configNode": "49752e61.9b1e9",
+        "name": "",
+        "collection": "Users",
+        "operation": "insert",
+        "x": 488,
+        "y": 361,
+        "wires": [
+            [
+                "fe6ff1fa.080da"
+            ]
+        ]
+    },
+    {
+        "id": "fe6ff1fa.080da",
+        "type": "debug",
+        "z": "d96d1efc.1af6f",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 774,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "4449e8da.5f7768",
+        "type": "function",
+        "z": "d96d1efc.1af6f",
+        "name": "",
+        "func": "msg.userData = msg.payload;\nmsg.payload = {\n    username: msg.userData.username\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 375,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8396d18b.0686c",
+        "type": "http response",
+        "z": "d96d1efc.1af6f",
+        "name": "",
+        "x": 1206,
+        "y": 175,
+        "wires": []
+    },
+    {
+        "id": "a5a9ee83.9d95c",
+        "type": "mongodb2 in",
+        "z": "d96d1efc.1af6f",
+        "service": "_ext_",
+        "configNode": "49752e61.9b1e9",
+        "name": "",
+        "collection": "Users",
+        "operation": "findOne",
+        "x": 632.5,
+        "y": 176,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "28fdebe2.085074",
+        "type": "JsonWebToken",
+        "z": "d96d1efc.1af6f",
+        "name": "encrypt",
+        "tokenconfig": "12c48fe4.f2b65",
+        "x": 891.5,
+        "y": 175,
+        "wires": [
+            []
+        ]
+    }
+]

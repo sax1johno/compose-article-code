@@ -1,0 +1,212 @@
+[
+    {
+        "id": "6be73bc2.4196d4",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "ebfa5b07.286248",
+        "type": "mongodb",
+        "z": "6be73bc2.4196d4",
+        "hostname": "aws-us-east-1-portal.8.dblayer.com",
+        "port": "15234",
+        "db": "power-prototyping",
+        "name": "Power Prototyping"
+    },
+    {
+        "id": "dffb9d1d.d3cfe",
+        "type": "mongodb in",
+        "z": "6be73bc2.4196d4",
+        "mongodb": "ebfa5b07.286248",
+        "name": "",
+        "collection": "projects",
+        "operation": "find",
+        "x": 435.5,
+        "y": 107,
+        "wires": [
+            [
+                "2a83b769.f29c08"
+            ]
+        ]
+    },
+    {
+        "id": "495a0018.44b7c",
+        "type": "http in",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "url": "/projects",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 136.5,
+        "y": 108,
+        "wires": [
+            [
+                "dffb9d1d.d3cfe"
+            ]
+        ]
+    },
+    {
+        "id": "2a83b769.f29c08",
+        "type": "http response",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "x": 703.5,
+        "y": 107,
+        "wires": []
+    },
+    {
+        "id": "a106564e.3f4ae8",
+        "type": "http in",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "url": "/projects",
+        "method": "post",
+        "swaggerDoc": "",
+        "x": 147,
+        "y": 196,
+        "wires": [
+            [
+                "4357b5f6.32ffbc"
+            ]
+        ]
+    },
+    {
+        "id": "ea86e412.d6ec08",
+        "type": "http response",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "x": 704,
+        "y": 195,
+        "wires": []
+    },
+    {
+        "id": "4357b5f6.32ffbc",
+        "type": "function",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "func": "msg.payload = msg.req.body;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 346.5,
+        "y": 195,
+        "wires": [
+            [
+                "ea86e412.d6ec08",
+                "be7e7047.d442"
+            ]
+        ]
+    },
+    {
+        "id": "be7e7047.d442",
+        "type": "mongodb out",
+        "z": "6be73bc2.4196d4",
+        "mongodb": "ebfa5b07.286248",
+        "name": "",
+        "collection": "projects",
+        "payonly": true,
+        "upsert": false,
+        "multi": false,
+        "operation": "insert",
+        "x": 767.5,
+        "y": 264,
+        "wires": []
+    },
+    {
+        "id": "c036c02a.137f1",
+        "type": "http in",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "url": "/projects",
+        "method": "put",
+        "swaggerDoc": "",
+        "x": 144,
+        "y": 343,
+        "wires": [
+            [
+                "b223e34a.b511"
+            ]
+        ]
+    },
+    {
+        "id": "118b99ed.5f5a06",
+        "type": "http response",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "x": 711,
+        "y": 342,
+        "wires": []
+    },
+    {
+        "id": "b223e34a.b511",
+        "type": "function",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "func": "msg.payload = msg.req.body;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 353.5,
+        "y": 342,
+        "wires": [
+            [
+                "118b99ed.5f5a06",
+                "ad15b224.6825c"
+            ]
+        ]
+    },
+    {
+        "id": "ad15b224.6825c",
+        "type": "mongodb out",
+        "z": "6be73bc2.4196d4",
+        "mongodb": "ebfa5b07.286248",
+        "name": "",
+        "collection": "projects",
+        "payonly": true,
+        "upsert": false,
+        "multi": false,
+        "operation": "update",
+        "x": 774.5,
+        "y": 411,
+        "wires": []
+    },
+    {
+        "id": "34b32c7c.d10b44",
+        "type": "http in",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "url": "/projects/:id",
+        "method": "delete",
+        "swaggerDoc": "",
+        "x": 158,
+        "y": 506,
+        "wires": [
+            [
+                "c5a3df0a.7b12f"
+            ]
+        ]
+    },
+    {
+        "id": "7edcd31c.4d9c5c",
+        "type": "http response",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "x": 705,
+        "y": 505,
+        "wires": []
+    },
+    {
+        "id": "c5a3df0a.7b12f",
+        "type": "function",
+        "z": "6be73bc2.4196d4",
+        "name": "",
+        "func": "msg.payload = msg.req.params;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 347.5,
+        "y": 505,
+        "wires": [
+            [
+                "7edcd31c.4d9c5c"
+            ]
+        ]
+    }
+]

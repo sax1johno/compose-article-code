@@ -1,0 +1,40 @@
+version: '2.0'
+services:
+    nginx:
+        container_name: nginx
+        build: nginx
+        restart: unless-stopped
+        ports:
+            - '80:80'
+        networks:
+            - site1
+    site1_node-red:
+        extends:
+            file: service-types.yml
+            service: node-red
+        build: sites/Site1
+        ports:
+            - '80'
+        restart: always
+        depends_on:
+            - nginx
+        networks:
+            site1:
+                aliases:
+                    - site1_node-red
+        links:
+            - site1_views
+    site1_views:
+        extends:
+            file: service-types.yml
+            service: microservice
+        build: sites/Site1/components/Views
+        restart: always
+        networks:
+            site1:
+                aliases:
+                    - views
+        expose:
+            - '10201'
+networks:
+    site1: {}

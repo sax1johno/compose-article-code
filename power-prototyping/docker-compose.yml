@@ -1,0 +1,70 @@
+version: '2.0'
+services:
+    nginx:
+        container_name: nginx
+        build: nginx
+        restart: unless-stopped
+        ports:
+            - '80:80'
+        networks:
+            - powerprototyping
+            - jsonwebtoken
+    powerprototyping_node-red:
+        extends:
+            file: service-types.yml
+            service: node-red
+        build: sites/PowerPrototyping
+        ports:
+            - '80'
+        restart: always
+        depends_on:
+            - nginx
+        networks:
+            powerprototyping:
+                aliases:
+                    - powerprototyping_node-red
+        links:
+            - powerprototyping_views
+    powerprototyping_views:
+        extends:
+            file: service-types.yml
+            service: microservice
+        build: sites/PowerPrototyping/components/Views
+        restart: always
+        networks:
+            powerprototyping:
+                aliases:
+                    - powerprototyping_views
+        expose:
+            - '10201'
+    jsonwebtoken_node-red:
+        extends:
+            file: service-types.yml
+            service: node-red
+        build: sites/JSONWebToken
+        ports:
+            - '80'
+        restart: always
+        depends_on:
+            - nginx
+        networks:
+            jsonwebtoken:
+                aliases:
+                    - jsonwebtoken_node-red
+        links:
+            - jsonwebtoken_views
+    jsonwebtoken_views:
+        extends:
+            file: service-types.yml
+            service: microservice
+        build: sites/JSONWebToken/components/Views
+        restart: always
+        networks:
+            jsonwebtoken:
+                aliases:
+                    - views
+        expose:
+            - '10201'
+networks:
+    powerprototyping: {}
+    jsonwebtoken: {}

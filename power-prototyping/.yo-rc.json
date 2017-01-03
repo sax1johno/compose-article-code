@@ -1,0 +1,15 @@
+{
+  "generator-toccata": {
+    "siteNumber": 2,
+    "sites": [
+      {
+        "name": "PowerPrototyping",
+        "networkName": "PowerPrototyping"
+      },
+      {
+        "name": "JSONWebToken",
+        "networkName": "JSONWebToken"
+      }
+    ]
+  }
+}

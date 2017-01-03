@@ -1,0 +1,16 @@
+version: '2.0'
+services:
+    site1_node-red:
+        environment:
+            - NODE_ENV=development
+            - ENV=development
+        volumes:
+            - './sites/Site1/flows:/usr/src/flows'
+            - './sites/Site1/public:/usr/src/public'
+    site1_views:
+        environment:
+            - NODE_ENV=development
+            - ENV=development
+        volumes:
+            - './sites/Site1/components/Views/views:/usr/src/views'
+            - './sites/Site1/components/Views/models:/usr/src/models'
